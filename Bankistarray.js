@@ -35,8 +35,8 @@ const account4 = {
 };
 const accounts = [account1, account2, account3, account4];
 
-const transactiondisplay = function (trans) {
-  trans.forEach((value, i,accounts) => {
+const transactiondisplay = function (acc) {
+  acc.forEach((value, i,accounts) => {
     const type = value > 0 ? "DEPOSIT" : "WITHDRAWL";
     const div = `
         <div class="individualTransaction">
@@ -69,14 +69,14 @@ usernames(accounts);
 console.log(accounts)
 
 //calculating summary
-const displaysummary=function(trans){
-  const income=trans.filter(value=>value>0).reduce((acc,values)=>acc+=values,0);
+const displaysummary=function(acc){
+  const income=acc.transactions.filter(value=>value>0).reduce((acc,values)=>acc+=values,0);
   inamount.textContent=`${income}€`
 
-  const expenditure=Math.abs(trans.filter(value=>value<0).reduce((acc,values)=>acc+=values,0));
+  const expenditure=Math.abs(acc.transactions.filter(value=>value<0).reduce((acc,values)=>acc+=values,0));
   outamount.textContent=`${expenditure}€`
 
-  const interest=trans.filter(value=>value>0).map(value=>value*0.5/100).reduce((acc,value)=>acc+=value,0);
+  const interest=acc.transactions.filter(value=>value>0).map(value=>value*acc.interestRate/100).reduce((acc,value)=>acc+=value,0);
   interestamount.textContent=`${interest}€`
 }
 
@@ -91,7 +91,10 @@ btnlogin.addEventListener("click",function(e){
       labellogin.textContent=`Welcome back, ${currentaccount.owner.split(" ")[0]}`;
       transactiondisplay(currentaccount.transactions);
       calcdisplaybalance(currentaccount.transactions);
-      displaysummary(currentaccount.transactions);
+      displaysummary(currentaccount);
+      labeluser.classList.toggle("hidden")
+      labelpin.classList.toggle("hidden")
+      btnlogin.classList.toggle("hidden")
     }
 });
 
