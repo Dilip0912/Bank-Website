@@ -91,7 +91,7 @@ btnlogin.addEventListener("click",function(e){
       labellogin.textContent=`Welcome back, ${currentaccount.owner.split(" ")[0]}`;
       transactiondisplay(currentaccount.transactions);
       calcdisplaybalance(currentaccount.transactions);
-
+      displaysummary(currentaccount.transactions);
     }
 });
 
