@@ -90,6 +90,8 @@ btnlogin.addEventListener("click",function(e){
       labelcontainer.classList.remove("hidden")
       labellogin.textContent=`Welcome back, ${currentaccount.owner.split(" ")[0]}`;
       transactiondisplay(currentaccount.transactions);
+      calcdisplaybalance(currentaccount.transactions);
+
     }
 });
 
