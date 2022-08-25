@@ -1,0 +1,184 @@
+body{
+    background-color: rgba(128, 128, 128, 0.696);
+}
+.container{
+    margin: 20px;
+}
+.navbar{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 25px;
+}
+.login{
+    font-size: 22px;
+    border: 3px solid grey;
+    border-radius: 8px;
+    padding: 10px;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+}
+.image{
+    position: relative;
+    border-radius: 15px;
+    background-color: aliceblue;
+}
+.side{
+    /* position: relative; */
+    /* margin-top: 25px; */
+    display: flex;
+    flex-direction: column;
+}
+.description{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 25px;
+}
+.leftdescription{
+    font-size: 18px;
+}
+.leftdescriptionbalance{
+    font-size: 30px;
+    color: rgb(33, 7, 7);
+    font-weight: bold;
+    font-family: 'Courier New', Courier, monospace;
+}
+.rightdescription{
+    font-size: 55px;
+    font-weight: bold;
+    font-family: 'Courier New', Courier, monospace;
+}
+.main{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+.transactioncontainer{
+    width: 50%;
+    margin-top: 60px;
+}
+.individualTransaction{
+    display: flex;
+    justify-content: space-between;
+    margin: 2px;
+    background-color: rgba(255, 255, 255, 0.566);
+    padding: 20px;
+}
+.WITHDRAWL{
+    background-color: red;
+    border-radius: 15px;
+    padding: 5px;
+}
+.DEPOSIT{
+    background-color: rgb(70, 157, 70);
+    padding: 5px;
+    border-radius: 15px;
+}
+.typetransaction{
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.971);
+    font-family: 'Courier New', Courier, monospace;
+}
+.rightmain{
+    margin-top: 60px;
+    margin-left: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.transfer{
+    border-radius: 5px;
+    height: 30%;
+    background-color: rgb(191, 117, 38);
+}
+.para{
+    font-size: 25px;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    margin-left: 25px;
+}
+.lowpara{
+    margin-top: -3px;
+    font-weight: bold;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+.details{
+    display: flex;
+    justify-content: space-between;
+    margin-left: 25px;
+    margin-right: 10px;
+}
+.detail{
+    display: flex;
+    justify-content: space-between;
+    margin-left: 25px;
+}
+
+.request{
+    border-radius: 5px;
+    /* border: 5px solid green; */
+    background-color: rgb(7, 154, 7);
+    height: 30%;
+}
+.rlbtn{
+    margin-right: 130px;
+    margin-top: 3px;
+    /* background-color: red; */
+    /* position: relative; */
+    /* right: 20px; */
+}
+.tbtn{
+    margin-top: 3px;
+    margin-left: 45px;
+}
+.cabtn{
+    margin-top: 3px;
+}
+.close{
+    border-radius: 5px;
+    /* border: 5px solid red; */
+    background-color: rgb(213, 60, 60);
+    height: 30%;
+}
+input[type=text]{
+    margin: 0px 5px 5px 0px;    
+    border-radius: 8px;
+    height: 25px;
+}
+input[type=number]{
+    margin: 0px 5px 5px 0px;    
+    border-radius: 8px;
+    height: 25px;
+}
+.lowersectionleft{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 65%;
+    margin-top: 30px;
+}
+.inamount{
+    color: green;
+    font-size: 35px;
+    font-weight: bold;
+    position: relative;
+    top: -65px;
+    left: 20px;
+}
+.outamount{
+    color: rgb(178, 4, 4);
+    font-weight: bold;
+    font-size: 35px;
+    position: relative;
+    top: -65px;
+    left: 40px;
+}
+.interestamount{
+    color: rgba(171, 38, 38, 0.875);
+    font-weight: bold;
+    font-size: 35px;
+    position: relative;
+    top: -65px;
+    left: 80px;
+}

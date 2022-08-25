@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bank Website</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <nav class="navbar">
+        <p class="login">Log in to get started</p>
+        <img
+          src="Lock.png"
+          class="image"
+          alt="lock-image"
+          width="50px"
+          height="50px"
+        />
+        <div class="side">
+          <div class="user" id="username">
+            <input type="text" placeholder="user" />
+          </div>
+          <input type="number" class="pin" placeholder="pin" />
+          <button class="arrow" style="height:40px;width:40px;margin-left: 50px;margin-top: px;">&rarr;</button>
+        </div>
+      </nav>
+      <div class="description">
+        <div class="leftdescription">
+          <span class="leftdescriptionbalance">Current balance </span><br />As
+          of 23/08/2022
+        </div>
+        <div class="rightdescription">0000€</div>
+      </div>
+      <div class="main">
+        <div class="transactioncontainer"></div>
+        <div class="rightmain">
+          <div class="transfer">
+            <p class="para">Transfer money</p>
+            <div class="details">
+              <div class="tid"><input type="text" size="10" style="background-color: #eec883;"><br><p class="lowpara">Transfer to</p></div>
+              <div class="amount"><input type="text" size="10" style="background-color: #eec883;"><br><p class="lowpara">Amount</p></div>              
+              <div class="tbtn"> <button class="transferbut">&rarr;</button></div>
+            </div>
+          </div>
+          <div class="request">
+            <p class="para">Request loan</p>
+            <div class="detail">
+              <div class="aid"><input type="text" size="9"  style="background-color: rgb(131, 217, 131);"><br><p class="lowpara">Amount</p></div>
+              <div class="rlbtn"> <button class="transferbut">&rarr;</button></div>
+            </div>
+          </div>
+          <div class="close">
+            <p class="para">Close account</p>
+            <div class="details">
+              <div class="confirmuid"><input type="text" size="10" style="background-color: rgb(237, 133, 133);"><br><p class="lowpara">Transfer to</p></div>
+              <div class="confirmpid"><input type="text" size="10" style="background-color: rgb(237, 133, 133);"><br><p class="lowpara">Amount</p></div>              
+              <div class="cabtn"> <button class="transferbut">&rarr;</button></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="lowersection">
+        <div class="lowersectionleft">
+          <div class="lowersectionleftin"> <p class="in">IN <p class="inamount">0000€</p> </p></div>
+          <div class="lowersectionleftout"> <p class="out">OUT <p class="outamount">0000€</p> </p></div>
+          <div class="lowersectionleftout"><p class="interest">INTEREST <p class="interestamount">0€</p> </p></div>
+        </div>
+        <div class="lowersectionright">
+        </div>
+      </div>
+    </div>
+    <script src="Bankistarray.js"></script>
+  </body>
+</html>
