@@ -1,37 +1,42 @@
+const labellogin=document.querySelector(".login")
+const transactiondetails = document.querySelector(".transactioncontainer");
 const rightdescription=document.querySelector(".rightdescription");
 const inamount=document.querySelector(".inamount");
 const outamount=document.querySelector(".outamount")
 const interestamount=document.querySelector(".interestamount")
+const btnlogin=document.querySelector(".arrow")
+const labeluser=document.querySelector(".user")
+const labelpin=document.querySelector(".pin")
+const labelcontainer=document.querySelector(".container")
 
-const array1 = {
+const account1 = {
   owner: "Dilip Raj",
   transactions: [500, 200, -300, 50000, -30000, 2000, 1500, -15000],
   pin: 2222,
   interestRate: 0.5,
 };
-const array2 = {
+const account2 = {
   owner: "Ankit",
   transactions: [400, 2000, -1500, 13000, -3000, 131000, -1500, -100000],
   pin: 3333,
   interestRate: 2,
 };
-const array3 = {
+const account3 = {
   owner: "Amar",
   transactions: [50000, 20000, -3000, 50000, -300, 40000, 20000, -150000],
   pin: 4444,
   interestRate: 1,
 };
-const array4 = {
+const account4 = {
   owner: "Aryan",
   transactions: [4000, 20000, -30000, 10000, -20000, 1000, 10500, -1000],
   pin: 5555,
   interestRate: 0.8,
 };
-const array = [array1, array2, array3, array4];
-const transactiondetails = document.querySelector(".transactioncontainer");
+const accounts = [account1, account2, account3, account4];
 
 const transactiondisplay = function (trans) {
-  trans.forEach((value, i,array) => {
+  trans.forEach((value, i,accounts) => {
     const type = value > 0 ? "DEPOSIT" : "WITHDRAWL";
     const div = `
         <div class="individualTransaction">
@@ -42,14 +47,13 @@ const transactiondisplay = function (trans) {
     transactiondetails.insertAdjacentHTML("afterbegin", div);
   });
 };
-transactiondisplay(array1.transactions);
 
 const calcdisplaybalance=function(arr){
-  const finalbalance=arr.reduce((acc,value,i,array)=>
+  const finalbalance=arr.reduce((acc,value,i,accounts)=>
   acc+=value,0)
   rightdescription.textContent=`${finalbalance}€`;
 }
-calcdisplaybalance(array1.transactions)
+calcdisplaybalance(account1.transactions)
 
 //Creating Usernames using map and forEach method
 const usernames = function(username){
@@ -61,8 +65,8 @@ const usernames = function(username){
       .join("");
   });
 };
-usernames(array);
-console.log(array)
+usernames(accounts);
+console.log(accounts)
 
 //calculating summary
 const displaysummary=function(trans){
@@ -75,29 +79,22 @@ const displaysummary=function(trans){
   const interest=trans.filter(value=>value>0).map(value=>value*0.5/100).reduce((acc,value)=>acc+=value,0);
   interestamount.textContent=`${interest}€`
 }
-displaysummary(array1.transactions)
+
+btnlogin.addEventListener("click",function(e){
+  e.preventDefault();
+
+    currentaccount=accounts.find(acc=>acc.username===labeluser.value)
+    // console.log(currentaccount)
+    if(currentaccount?.pin === Number(labelpin.value))
+    {
+      labelcontainer.classList.remove("hidden")
+      labellogin.textContent=`Welcome back, ${currentaccount.owner.split(" ")[0]}`;
+      transactiondisplay(currentaccount.transactions);
+    }
+});
 
 
 
 
 
 
-
-
-//find is used here to get the account of a person by his/her name.
-// const account=array.find(arr=> arr.owner==="Ankit")
-// console.log(account)
-//Filter method
-// const transaction=array1.transactions;
-// const debittrans=transaction.filter(value=> value>0)
-// console.log(debittrans)
-// const withdrawtrans=transaction.filter(value=>value<0)
-// console.log(withdrawtrans)
-
-// //reduce method-> To get a single value from the array after calculations.
-// const calbalance=transaction.reduce((acc,value,i,array)=>
-//   acc+=value,0);
-// console.log("Total balance of Dilip Raj is:",calbalance)
-
-// const inamount=document.querySelector(".inamount")
-// console.log(inamount)

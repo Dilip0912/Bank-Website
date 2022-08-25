@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <div class="container">
       <nav class="navbar">
         <p class="login">Log in to get started</p>
         <img
@@ -18,14 +17,13 @@
           width="50px"
           height="50px"
         />
-        <div class="side">
-          <div class="user" id="username">
-            <input type="text" placeholder="user" />
-          </div>
+        <form class="side">
+          <input type="text" class="user" placeholder="user">
           <input type="number" class="pin" placeholder="pin" />
           <button class="arrow" style="height:40px;width:40px;margin-left: 50px;margin-top: px;">&rarr;</button>
-        </div>
+        </form>
       </nav>
+    <div class="container hidden">
       <div class="description">
         <div class="leftdescription">
           <span class="leftdescriptionbalance">Current balance </span><br />As

@@ -1,8 +1,8 @@
 body{
     background-color: rgba(128, 128, 128, 0.696);
 }
-.container{
-    margin: 20px;
+.hidden{
+    display: none;
 }
 .navbar{
     display: flex;
