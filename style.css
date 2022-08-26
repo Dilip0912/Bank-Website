@@ -121,20 +121,6 @@ body{
     background-color: rgb(7, 154, 7);
     height: 30%;
 }
-.rlbtn{
-    margin-right: 130px;
-    margin-top: 3px;
-    /* background-color: red; */
-    /* position: relative; */
-    /* right: 20px; */
-}
-.tbtn{
-    margin-top: 3px;
-    margin-left: 45px;
-}
-.cabtn{
-    margin-top: 3px;
-}
 .close{
     border-radius: 5px;
     /* border: 5px solid red; */
@@ -151,7 +137,7 @@ input[type=number]{
     border-radius: 8px;
     height: 25px;
 }
-.lowersectionleft{
+.lowersection{
     display: flex;
     flex-direction: row;
     justify-content: space-between;

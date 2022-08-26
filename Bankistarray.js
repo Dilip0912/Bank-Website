@@ -8,6 +8,9 @@ const btnlogin=document.querySelector(".arrow")
 const labeluser=document.querySelector(".user")
 const labelpin=document.querySelector(".pin")
 const labelcontainer=document.querySelector(".container")
+const btntransfer=document.querySelector(".btntransfer")
+const inputreceiver=document.querySelector(".inputreceiver")
+const inputamount=document.querySelector(".inputamount")
 
 const account1 = {
   owner: "Dilip Raj",
@@ -19,13 +22,13 @@ const account2 = {
   owner: "Ankit",
   transactions: [400, 2000, -1500, 13000, -3000, 131000, -1500, -100000],
   pin: 3333,
-  interestRate: 2,
+  interestRate: 0.6,
 };
 const account3 = {
   owner: "Amar",
   transactions: [50000, 20000, -3000, 50000, -300, 40000, 20000, -150000],
   pin: 4444,
-  interestRate: 1,
+  interestRate: 0.9,
 };
 const account4 = {
   owner: "Aryan",
@@ -35,6 +38,7 @@ const account4 = {
 };
 const accounts = [account1, account2, account3, account4];
 
+//Displaying summary
 const transactiondisplay = function (acc) {
   acc.forEach((value, i,accounts) => {
     const type = value > 0 ? "DEPOSIT" : "WITHDRAWL";
@@ -48,12 +52,15 @@ const transactiondisplay = function (acc) {
   });
 };
 
+//Calculating and Showing final balance
 const calcdisplaybalance=function(arr){
-  const finalbalance=arr.reduce((acc,value,i,accounts)=>
+  const finalbalance=arr.transactions.reduce((acc,value,i,accounts)=>
   acc+=value,0)
+  // console.log(finalbalance)
+  arr.balance=finalbalance
   rightdescription.textContent=`${finalbalance}€`;
 }
-calcdisplaybalance(account1.transactions)
+
 
 //Creating Usernames using map and forEach method
 const usernames = function(username){
@@ -66,7 +73,6 @@ const usernames = function(username){
   });
 };
 usernames(accounts);
-console.log(accounts)
 
 //calculating summary
 const displaysummary=function(acc){
@@ -80,23 +86,57 @@ const displaysummary=function(acc){
   interestamount.textContent=`${interest}€`
 }
 
+
 btnlogin.addEventListener("click",function(e){
   e.preventDefault();
 
     currentaccount=accounts.find(acc=>acc.username===labeluser.value)
-    // console.log(currentaccount)
     if(currentaccount?.pin === Number(labelpin.value))
     {
       labelcontainer.classList.remove("hidden")
       labellogin.textContent=`Welcome back, ${currentaccount.owner.split(" ")[0]}`;
       transactiondisplay(currentaccount.transactions);
-      calcdisplaybalance(currentaccount.transactions);
+      calcdisplaybalance(currentaccount);
       displaysummary(currentaccount);
       labeluser.classList.toggle("hidden")
       labelpin.classList.toggle("hidden")
       btnlogin.classList.toggle("hidden")
     }
 });
+
+
+btntransfer.addEventListener("click",function(e){
+  e.preventDefault();
+
+  const receiveraccount=accounts.find(acc=>acc.username===inputreceiver.value)
+  const amount=inputamount.value;
+  console.log(amount)
+  if(amount>0&&currentaccount.balance>=amount && receiveraccount && receiveraccount.username!==currentaccount.username){
+    currentaccount.transactions.push(Number(`-${amount}`)) 
+    receiveraccount.transactions.push(Number(amount))
+    console.log(currentaccount)
+    console.log(receiveraccount)
+    calcdisplaybalance(currentaccount)
+    displaysummary(currentaccount)
+    const transvalue=amount;
+    console.log(transvalue);
+    const ttype ="WITHDRAWL";
+    let i=currentaccount.transactions.length;
+    const transdiv = `
+        <div class="individualTransaction">
+            <div class="typetransaction  ${ttype}">${i} ${ttype}</div>
+            <div class="valuetransaction">${transvalue}€</div>
+        </div>
+        `;
+    transactiondetails.insertAdjacentHTML("afterbegin", transdiv);
+  }
+  
+})
+
+
+
+
+
 
 
 

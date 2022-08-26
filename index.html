@@ -24,50 +24,46 @@
         </form>
       </nav>
     <div class="container hidden">
-      <div class="description">
+      <header class="description">
         <div class="leftdescription">
           <span class="leftdescriptionbalance">Current balance </span><br />As
           of 23/08/2022
         </div>
         <div class="rightdescription">0000€</div>
-      </div>
-      <div class="main">
+      </header>
+      <main class="main">
         <div class="transactioncontainer"></div>
         <div class="rightmain">
           <div class="transfer">
             <p class="para">Transfer money</p>
             <div class="details">
-              <div class="tid"><input type="text" size="10" style="background-color: #eec883;"><br><p class="lowpara">Transfer to</p></div>
-              <div class="amount"><input type="text" size="10" style="background-color: #eec883;"><br><p class="lowpara">Amount</p></div>              
-              <div class="tbtn"> <button class="transferbut">&rarr;</button></div>
+              <input type="text" size="10" class="inputreceiver" style="background-color: #eec883;"><br><p class="lowpara">Transfer to</p>
+              <input type="text" size="10" class="inputamount" style="background-color: #eec883;"><br><p class="lowpara">Amount</p>           
+              <button class="btntransfer" style="height: 25px;">&rarr;</button>
             </div>
           </div>
           <div class="request">
             <p class="para">Request loan</p>
             <div class="detail">
-              <div class="aid"><input type="text" size="9"  style="background-color: rgb(131, 217, 131);"><br><p class="lowpara">Amount</p></div>
-              <div class="rlbtn"> <button class="transferbut">&rarr;</button></div>
+              <input type="text" size="9"  style="background-color: rgb(131, 217, 131);"><br><p class="lowpara">Amount</p>
+              <button class="btnrequest" style="margin-left: 200px;position: relative;left: -150px;top: -10px;">&rarr;</button>
             </div>
           </div>
           <div class="close">
             <p class="para">Close account</p>
             <div class="details">
-              <div class="confirmuid"><input type="text" size="10" style="background-color: rgb(237, 133, 133);"><br><p class="lowpara">Transfer to</p></div>
-              <div class="confirmpid"><input type="text" size="10" style="background-color: rgb(237, 133, 133);"><br><p class="lowpara">Amount</p></div>              
-              <div class="cabtn"> <button class="transferbut">&rarr;</button></div>
+              <input type="text" size="10" style="background-color: rgb(237, 133, 133);"><br><p class="lowpara">Transfer to</p>
+              <input type="text" size="10" style="background-color: rgb(237, 133, 133);"><br><p class="lowpara">Amount</p>              
+              <button class="btncloseaccount" style="height: 25px;">&rarr;</button>
             </div>
           </div>
         </div>
-      </div>
-      <div class="lowersection">
-        <div class="lowersectionleft">
+      </main>
+      <footer class="lowersection">
           <div class="lowersectionleftin"> <p class="in">IN <p class="inamount">0000€</p> </p></div>
           <div class="lowersectionleftout"> <p class="out">OUT <p class="outamount">0000€</p> </p></div>
           <div class="lowersectionleftout"><p class="interest">INTEREST <p class="interestamount">0€</p> </p></div>
-        </div>
-        <div class="lowersectionright">
-        </div>
-      </div>
+      </footer>
     </div>
     <script src="Bankistarray.js"></script>
   </body>
