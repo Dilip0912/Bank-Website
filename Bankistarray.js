@@ -1,8 +1,8 @@
 const labellogin=document.querySelector(".login")
-const transactiondetails = document.querySelector(".transactioncontainer");
-const rightdescription=document.querySelector(".rightdescription");
 const inamount=document.querySelector(".inamount");
 const outamount=document.querySelector(".outamount")
+const transactiondetails = document.querySelector(".transactioncontainer");
+const rightdescription=document.querySelector(".rightdescription");
 const interestamount=document.querySelector(".interestamount")
 const btnlogin=document.querySelector(".arrow")
 const labeluser=document.querySelector(".user")
@@ -11,27 +11,30 @@ const labelcontainer=document.querySelector(".container")
 const btntransfer=document.querySelector(".btntransfer")
 const inputreceiver=document.querySelector(".inputreceiver")
 const inputamount=document.querySelector(".inputamount")
+const btnaccountclose=document.querySelector(".btncloseaccount")
+const inputcloseuser=document.querySelector(".closeuser")
+const inputclosepin=document.querySelector(".closepin")
 
 const account1 = {
-  owner: "Dilip Raj",
+  owner: "Aryan Raj",
   transactions: [500, 200, -300, 50000, -30000, 2000, 1500, -15000],
   pin: 2222,
   interestRate: 0.5,
 };
 const account2 = {
-  owner: "Ankit",
+  owner: "Ankit Singh",
   transactions: [400, 2000, -1500, 13000, -3000, 131000, -1500, -100000],
   pin: 3333,
   interestRate: 0.6,
 };
 const account3 = {
-  owner: "Amar",
+  owner: "Shivam Sharma",
   transactions: [50000, 20000, -3000, 50000, -300, 40000, 20000, -150000],
   pin: 4444,
   interestRate: 0.9,
 };
 const account4 = {
-  owner: "Aryan",
+  owner: "Rahul Tripathi",
   transactions: [4000, 20000, -30000, 10000, -20000, 1000, 10500, -1000],
   pin: 5555,
   interestRate: 0.8,
@@ -39,7 +42,9 @@ const account4 = {
 const accounts = [account1, account2, account3, account4];
 
 //Displaying summary
+
 const transactiondisplay = function (acc) {
+  transactiondetails.innerHTML="";
   acc.forEach((value, i,accounts) => {
     const type = value > 0 ? "DEPOSIT" : "WITHDRAWL";
     const div = `
@@ -50,6 +55,7 @@ const transactiondisplay = function (acc) {
         `;
     transactiondetails.insertAdjacentHTML("afterbegin", div);
   });
+  labeluser.value=labelpin.value="";
 };
 
 //Calculating and Showing final balance
@@ -63,8 +69,8 @@ const calcdisplaybalance=function(arr){
 
 
 //Creating Usernames using map and forEach method
-const usernames = function(username){
-  username.forEach(function(arr){
+const usernames = function(acc){
+  acc.forEach(function(arr){
     arr.username = arr.owner
       .toLowerCase()
       .split(" ")
@@ -98,9 +104,7 @@ btnlogin.addEventListener("click",function(e){
       transactiondisplay(currentaccount.transactions);
       calcdisplaybalance(currentaccount);
       displaysummary(currentaccount);
-      labeluser.classList.toggle("hidden")
-      labelpin.classList.toggle("hidden")
-      btnlogin.classList.toggle("hidden")
+
     }
 });
 
@@ -129,9 +133,22 @@ btntransfer.addEventListener("click",function(e){
         </div>
         `;
     transactiondetails.insertAdjacentHTML("afterbegin", transdiv);
-  }
-  
+  }  
 })
+
+btnaccountclose.addEventListener("click",function(e){
+  e.preventDefault();
+  
+  // console.log(accounts)
+  if(inputcloseuser.value===currentaccount.username&&
+    Number(inputclosepin.value)===currentaccount.pin){
+      const index=accounts.findIndex(acc=>acc.username===currentaccount.username)
+      // console.log(index)
+      accounts.splice(index,1)
+      labelcontainer.classList.add("hidden")
+    }
+})
+
 
 
 
