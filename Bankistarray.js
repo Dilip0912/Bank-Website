@@ -16,6 +16,7 @@ const inputcloseuser=document.querySelector(".closeuser")
 const inputclosepin=document.querySelector(".closepin")
 const btnrequest=document.querySelector(".btnrequest")
 const inputrequest=document.querySelector(".requestamount")
+const btnsort=document.querySelector(".sorting")
 
 const account1 = {
   owner: "Aryan Raj",
@@ -45,9 +46,11 @@ const accounts = [account1, account2, account3, account4];
 
 //Displaying summary
 
-const transactiondisplay = function (acc) {
+const transactiondisplay = function (acc,sort=false) {
   transactiondetails.innerHTML="";
-  acc.forEach((value, i,accounts) => {
+
+  const tran=sort?acc.slice().sort((a,b)=>a-b):acc;
+  tran.forEach((value, i,accounts) => {
     const type = value > 0 ? "DEPOSIT" : "WITHDRAWL";
     const div = `
         <div class="individualTransaction">
@@ -117,16 +120,16 @@ btntransfer.addEventListener("click",function(e){
 
   const receiveraccount=accounts.find(acc=>acc.username===inputreceiver.value)
   const amount=inputamount.value;
-  console.log(amount)
+  // console.log(amount)
   if(amount>0&&currentaccount.balance>=amount && receiveraccount && receiveraccount.username!==currentaccount.username){
     currentaccount.transactions.push(Number(`-${amount}`)) 
     receiveraccount.transactions.push(Number(amount))
-    console.log(currentaccount)
-    console.log(receiveraccount)
+    // console.log(currentaccount)
+    // console.log(receiveraccount)
     calcdisplaybalance(currentaccount)
     displaysummary(currentaccount)
     const transvalue=amount;
-    console.log(transvalue);
+    // console.log(transvalue);
     const ttype ="WITHDRAWL";
     let i=currentaccount.transactions.length;
     const transdiv = `
@@ -137,6 +140,7 @@ btntransfer.addEventListener("click",function(e){
         `;
     transactiondetails.insertAdjacentHTML("afterbegin", transdiv);
   }  
+  inputreceiver.value=inputamount.value='';
 })
 
 btnrequest.addEventListener("click",function(e){
@@ -147,12 +151,12 @@ btnrequest.addEventListener("click",function(e){
   if(amount>0
     && currentaccount.transactions.some(trans=>trans>=amount*0.1)){
       currentaccount.transactions.push(Number(amount))
-      console.log(currentaccount)
+      // console.log(currentaccount)
       transactiondisplay(currentaccount.transactions);
       calcdisplaybalance(currentaccount);
       displaysummary(currentaccount);
   }
-  // inputrequest.value="";
+  inputrequest.value="";
 })
 
 btnaccountclose.addEventListener("click",function(e){
@@ -166,10 +170,31 @@ btnaccountclose.addEventListener("click",function(e){
       accounts.splice(index,1)
       labelcontainer.classList.add("hidden")
     }
+    inputclosepin.value=inputcloseuser.value="";
+})
+
+let sorting=false;
+btnsort.addEventListener("click",function(e){
+  e.preventDefault()
+
+  transactiondisplay(currentaccount.transactions,!sorting)
+  sorting=!sorting;
 })
 
 
 
+//flat and flatMap method:flatMap method acn only be used in 1 level nested.
+// const wholearray=accounts.map(acc=>acc.transactions);
+// console.log(wholearray)
+// const wholetransactionarray=wholearray.flat()
+// console.log(wholetransactionarray)
+// // sum of all transactions 
+// const totaltransactions=wholetransactionarray.reduce((acc,value)=>acc+value,0)
+// console.log(totaltransactions) 
+
+// //flatmap:Using flat and map together
+// const wholetransaction=accounts.flatMap(acc=>acc.transactions).reduce((acc,value)=>acc+value,0)
+// console.log(wholetransaction)
 
 
 
