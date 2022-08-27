@@ -14,6 +14,8 @@ const inputamount=document.querySelector(".inputamount")
 const btnaccountclose=document.querySelector(".btncloseaccount")
 const inputcloseuser=document.querySelector(".closeuser")
 const inputclosepin=document.querySelector(".closepin")
+const btnrequest=document.querySelector(".btnrequest")
+const inputrequest=document.querySelector(".requestamount")
 
 const account1 = {
   owner: "Aryan Raj",
@@ -60,6 +62,7 @@ const transactiondisplay = function (acc) {
 
 //Calculating and Showing final balance
 const calcdisplaybalance=function(arr){
+  rightdescription.textContent='';
   const finalbalance=arr.transactions.reduce((acc,value,i,accounts)=>
   acc+=value,0)
   // console.log(finalbalance)
@@ -136,6 +139,22 @@ btntransfer.addEventListener("click",function(e){
   }  
 })
 
+btnrequest.addEventListener("click",function(e){
+  e.preventDefault()
+  const amount=inputrequest.value;
+  console.log(amount)
+  
+  if(amount>0
+    && currentaccount.transactions.some(trans=>trans>=amount*0.1)){
+      currentaccount.transactions.push(Number(amount))
+      console.log(currentaccount)
+      transactiondisplay(currentaccount.transactions);
+      calcdisplaybalance(currentaccount);
+      displaysummary(currentaccount);
+  }
+  // inputrequest.value="";
+})
+
 btnaccountclose.addEventListener("click",function(e){
   e.preventDefault();
   
@@ -148,6 +167,7 @@ btnaccountclose.addEventListener("click",function(e){
       labelcontainer.classList.add("hidden")
     }
 })
+
 
 
 
