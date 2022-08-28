@@ -17,6 +17,7 @@ const inputclosepin=document.querySelector(".closepin")
 const btnrequest=document.querySelector(".btnrequest")
 const inputrequest=document.querySelector(".requestamount")
 const btnsort=document.querySelector(".sorting")
+const labeldate=document.querySelector(".date")
 
 const account1 = {
   owner: "Aryan Raj",
@@ -44,8 +45,20 @@ const account4 = {
 };
 const accounts = [account1, account2, account3, account4];
 
-//Displaying summary
+//Dates:Current Balance
+const datedisplay=function(){
+  const presentdate=new Date();
+  const date=presentdate.getDate();
+  const month=presentdate.getMonth();
+  const year=presentdate.getFullYear()
+  const displaydate=`${date}/${month}/${year}`
+  console.log(displaydate)
+  console.log(labeldate.textContent)
+  labeldate.textContent=displaydate;
+}
 
+
+//Displaying summary
 const transactiondisplay = function (acc,sort=false) {
   transactiondetails.innerHTML="";
 
@@ -110,7 +123,7 @@ btnlogin.addEventListener("click",function(e){
       transactiondisplay(currentaccount.transactions);
       calcdisplaybalance(currentaccount);
       displaysummary(currentaccount);
-
+      datedisplay();
     }
 });
 
