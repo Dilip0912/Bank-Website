@@ -22,24 +22,68 @@ const labeldate=document.querySelector(".date")
 const account1 = {
   owner: "Aryan Raj",
   transactions: [500, 200, -300, 50000, -30000, 2000, 1500, -15000],
+  transactionsdates:[
+    "2022-08-28T19:16:19.583Z",
+    "2022-08-26T19:16:19.583Z",
+    "2022-08-25T19:16:19.583Z",
+    "2022-08-20T19:16:19.583Z",
+    "2022-08-12T19:16:19.583Z",
+    "2022-08-10T19:16:19.583Z",
+    "2022-08-03T19:16:19.583Z",
+    "2022-08-01T19:16:19.583Z",
+
+  ],
   pin: 2222,
   interestRate: 0.5,
 };
 const account2 = {
   owner: "Ankit Singh",
   transactions: [400, 2000, -1500, 13000, -3000, 131000, -1500, -100000],
+  transactionsdates:[
+    "2022-08-28T19:16:19.583Z",
+    "2022-08-28T19:16:19.583Z",
+    "2022-08-28T19:16:19.583Z",
+    "2022-08-28T19:16:19.583Z",
+    "2022-08-28T19:16:19.583Z",
+    "2022-08-28T19:16:19.583Z",
+    "2022-08-28T19:16:19.583Z",
+    "2022-08-28T19:16:19.583Z",
+
+  ],
   pin: 3333,
   interestRate: 0.6,
 };
 const account3 = {
   owner: "Shivam Sharma",
   transactions: [50000, 20000, -3000, 50000, -300, 40000, 20000, -150000],
+  transactionsdates:[
+    "2022-08-28T19:16:19.583Z",
+    "2022-08-28T19:16:19.583Z",
+    "2022-08-28T19:16:19.583Z",
+    "2022-08-28T19:16:19.583Z",
+    "2022-08-28T19:16:19.583Z",
+    "2022-08-28T19:16:19.583Z",
+    "2022-08-28T19:16:19.583Z",
+    "2022-08-28T19:16:19.583Z",
+
+  ],
   pin: 4444,
   interestRate: 0.9,
 };
 const account4 = {
   owner: "Rahul Tripathi",
   transactions: [4000, 20000, -30000, 10000, -20000, 1000, 10500, -1000],
+  transactionsdates:[
+    "2022-08-28T19:16:19.583Z",
+    "2022-08-28T19:16:19.583Z",
+    "2022-08-28T19:16:19.583Z",
+    "2022-08-28T19:16:19.583Z",
+    "2022-08-28T19:16:19.583Z",
+    "2022-08-28T19:16:19.583Z",
+    "2022-08-28T19:16:19.583Z",
+    "2022-08-28T19:16:19.583Z",
+
+  ],
   pin: 5555,
   interestRate: 0.8,
 };
@@ -52,8 +96,8 @@ const datedisplay=function(){
   const month=presentdate.getMonth();
   const year=presentdate.getFullYear()
   const displaydate=`${date}/${month}/${year}`
-  console.log(displaydate)
-  console.log(labeldate.textContent)
+  // console.log(displaydate)
+  // console.log(labeldate.textContent)
   labeldate.textContent=displaydate;
 }
 
@@ -62,12 +106,22 @@ const datedisplay=function(){
 const transactiondisplay = function (acc,sort=false) {
   transactiondetails.innerHTML="";
 
-  const tran=sort?acc.slice().sort((a,b)=>a-b):acc;
+  const tran=sort?acc.transactions.slice().sort((a,b)=>a-b):acc.transactions;
   tran.forEach((value, i,accounts) => {
+    
     const type = value > 0 ? "DEPOSIT" : "WITHDRAWL";
+    
+    const transactiondate=new Date(acc.transactionsdates[i]);
+    // console.log(transactiondate)
+    const date=transactiondate.getDate();
+    const month=transactiondate.getMonth();
+    const year=transactiondate.getFullYear();
+    const displaydates=`${date}/${month}/${year}`;
+
     const div = `
         <div class="individualTransaction">
             <div class="typetransaction  ${type}">${i + 1} ${type}</div>
+            <div class="transactionsdate">${displaydates}</div>
             <div class="valuetransaction">${value}€</div>
         </div>
         `;
@@ -120,7 +174,7 @@ btnlogin.addEventListener("click",function(e){
     {
       labelcontainer.classList.remove("hidden")
       labellogin.textContent=`Welcome back, ${currentaccount.owner.split(" ")[0]}`;
-      transactiondisplay(currentaccount.transactions);
+      transactiondisplay(currentaccount);
       calcdisplaybalance(currentaccount);
       displaysummary(currentaccount);
       datedisplay();
@@ -137,21 +191,12 @@ btntransfer.addEventListener("click",function(e){
   if(amount>0&&currentaccount.balance>=amount && receiveraccount && receiveraccount.username!==currentaccount.username){
     currentaccount.transactions.push(Number(`-${amount}`)) 
     receiveraccount.transactions.push(Number(amount))
-    // console.log(currentaccount)
-    // console.log(receiveraccount)
+
+    receiveraccount.transactionsdates.push(new Date())
+    currentaccount.transactionsdates.push(new Date())
     calcdisplaybalance(currentaccount)
     displaysummary(currentaccount)
-    const transvalue=amount;
-    // console.log(transvalue);
-    const ttype ="WITHDRAWL";
-    let i=currentaccount.transactions.length;
-    const transdiv = `
-        <div class="individualTransaction">
-            <div class="typetransaction  ${ttype}">${i} ${ttype}</div>
-            <div class="valuetransaction">${transvalue}€</div>
-        </div>
-        `;
-    transactiondetails.insertAdjacentHTML("afterbegin", transdiv);
+    transactiondisplay(currentaccount)
   }  
   inputreceiver.value=inputamount.value='';
 })
@@ -164,8 +209,8 @@ btnrequest.addEventListener("click",function(e){
   if(amount>0
     && currentaccount.transactions.some(trans=>trans>=amount*0.1)){
       currentaccount.transactions.push(Number(amount))
-      // console.log(currentaccount)
-      transactiondisplay(currentaccount.transactions);
+      currentaccount.transactionsdates.push(new Date())
+      transactiondisplay(currentaccount);
       calcdisplaybalance(currentaccount);
       displaysummary(currentaccount);
   }
@@ -190,7 +235,7 @@ let sorting=false;
 btnsort.addEventListener("click",function(e){
   e.preventDefault()
 
-  transactiondisplay(currentaccount.transactions,!sorting)
+  transactiondisplay(currentaccount,!sorting)
   sorting=!sorting;
 })
 
@@ -210,7 +255,7 @@ btnsort.addEventListener("click",function(e){
 // console.log(wholetransaction)
 
 
-
+console.log(new Date().toISOString())
 
 
 

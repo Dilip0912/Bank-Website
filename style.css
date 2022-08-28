@@ -80,6 +80,10 @@ body{
     color: rgba(255, 255, 255, 0.971);
     font-family: 'Courier New', Courier, monospace;
 }
+.transactionsdate{
+    position: relative;
+    left: -0.6rem;
+}
 .rightmain{
     margin-top: 60px;
     margin-left: 50px;
