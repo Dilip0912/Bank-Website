@@ -260,9 +260,11 @@ btnrequest.addEventListener("click", function (e) {
     amount > 0 &&
     currentaccount.transactions.some((trans) => trans>= amount * 0.1)
   ) {
+    setTimeout(()=> {
     currentaccount.transactions.push(Number(amount));
     currentaccount.transactionsdates.push(new Date());
-    displayUI(currentaccount);
+    displayUI(currentaccount);}
+    ,5000)
   }
   inputrequest.value = "";
 });
