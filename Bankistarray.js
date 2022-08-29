@@ -33,6 +33,7 @@ const account1 = {
     "2022-08-01T19:16:19.583Z",
   ],
   pin: 2222,
+  locale: "en-US",
   interestRate: 0.5,
 };
 const account2 = {
@@ -49,6 +50,7 @@ const account2 = {
     "2022-08-28T19:16:19.583Z",
   ],
   pin: 3333,
+  locale: "en-GB",
   interestRate: 0.6,
 };
 const account3 = {
@@ -65,6 +67,7 @@ const account3 = {
     "2022-08-28T19:16:19.583Z",
   ],
   pin: 4444,
+  locale:"en-GB",
   interestRate: 0.9,
 };
 const account4 = {
@@ -81,36 +84,37 @@ const account4 = {
     "2022-08-28T19:16:19.583Z",
   ],
   pin: 5555,
+  locale:"en-US",
   interestRate: 0.8,
 };
 const accounts = [account1, account2, account3, account4];
 
 //Dates With Current Balance
-const datedisplay = function () {
+const datedisplay = function (locale) {
   const presentdate = new Date();
-  const date = presentdate.getDate();
-  const month = presentdate.getMonth();
-  const year = presentdate.getFullYear();
-  const displaydate = `${date}/${month+1}/${year}`;
-  labeldate.textContent = displaydate;
+  // const date = presentdate.getDate();
+  // const month = presentdate.getMonth();
+  // const year = presentdate.getFullYear();
+  // const displaydate = `${date}/${month+1}/${year}`;
+  labeldate.textContent = new Intl.DateTimeFormat(locale).format(presentdate)
 };
 
 
 //Transactiondates formatting function
-const transactiondates = function (transactiondate) {
+const transactiondates = function (transactiondate,locale) {
   const presentdate = new Date();
   const daypassed = Math.round(
     (presentdate - transactiondate) / (1000 * 60 * 60 * 24)
   );
-  const date = transactiondate.getDate();
-  const month = transactiondate.getMonth();
-  const year = transactiondate.getFullYear();
-  const transdate = `${date}/${month+1}/${year}`;
+  // const date = transactiondate.getDate();
+  // const month = transactiondate.getMonth();
+  // const year = transactiondate.getFullYear();
+  // const transdate = `${date}/${month+1}/${year}`;
 
   if (daypassed === 0) return "Today"
   if (daypassed === 1) return "Yesterday";
   if (daypassed <= 7) return `${daypassed} days ago`;
-  return transdate;
+  return new Intl.DateTimeFormat(locale).format(transactiondate)
 };
 
 //Displaying transactions
@@ -124,7 +128,7 @@ const transactiondisplay = function (acc, sort = false) {
     const type = value > 0 ? "DEPOSIT" : "WITHDRAWL";
 
     const transactiondate = new Date(acc.transactionsdates[i]);
-    const displaydates = transactiondates(transactiondate);
+    const displaydates = transactiondates(transactiondate,acc.locale);
     const div = `
         <div class="individualTransaction">
             <div class="typetransaction  ${type}">${i + 1} ${type}</div>
@@ -188,6 +192,7 @@ const displayUI = function (account) {
   calcdisplaybalance(account);
 };
 
+//Login Button
 btnlogin.addEventListener("click", function (e) {
   e.preventDefault();
 
@@ -198,7 +203,7 @@ btnlogin.addEventListener("click", function (e) {
       currentaccount.owner.split(" ")[0]
     }`;
     displayUI(currentaccount);
-    datedisplay();
+    datedisplay(currentaccount.locale);
   }
 });
 
