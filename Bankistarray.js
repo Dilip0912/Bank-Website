@@ -89,7 +89,7 @@ const account4 = {
 };
 const accounts = [account1, account2, account3, account4];
 
-//Dates:Current Balance
+//Dates: Current Balance
 const datedisplay=function(){
   const presentdate=new Date();
   const date=presentdate.getDate();
@@ -102,17 +102,16 @@ const datedisplay=function(){
 }
 
 
-//Displaying summary
+//Displaying transactions
 const transactiondisplay = function (acc,sort=false) {
   transactiondetails.innerHTML="";
 
   const tran=sort?acc.transactions.slice().sort((a,b)=>a-b):acc.transactions;
-  tran.forEach((value, i,accounts) => {
-    
+  tran.forEach((value, i,accounts) => {    
+
     const type = value > 0 ? "DEPOSIT" : "WITHDRAWL";
     
     const transactiondate=new Date(acc.transactionsdates[i]);
-    // console.log(transactiondate)
     const date=transactiondate.getDate();
     const month=transactiondate.getMonth();
     const year=transactiondate.getFullYear();
@@ -130,12 +129,12 @@ const transactiondisplay = function (acc,sort=false) {
   labeluser.value=labelpin.value="";
 };
 
+
 //Calculating and Showing final balance
 const calcdisplaybalance=function(arr){
   rightdescription.textContent='';
   const finalbalance=arr.transactions.reduce((acc,value,i,accounts)=>
   acc+=value,0)
-  // console.log(finalbalance)
   arr.balance=finalbalance
   rightdescription.textContent=`${finalbalance}€`;
 }
@@ -165,7 +164,14 @@ const displaysummary=function(acc){
   interestamount.textContent=`${interest}€`
 }
 
-
+//DisplayUI
+const displayUI=function(account){
+  transactiondisplay(account);
+  displaysummary(account);
+  calcdisplaybalance(account);
+}
+// displayUI(account1);
+//Login Button
 btnlogin.addEventListener("click",function(e){
   e.preventDefault();
 
@@ -174,14 +180,13 @@ btnlogin.addEventListener("click",function(e){
     {
       labelcontainer.classList.remove("hidden")
       labellogin.textContent=`Welcome back, ${currentaccount.owner.split(" ")[0]}`;
-      transactiondisplay(currentaccount);
-      calcdisplaybalance(currentaccount);
-      displaysummary(currentaccount);
+      displayUI(currentaccount);
       datedisplay();
     }
 });
 
 
+//Transfer Button
 btntransfer.addEventListener("click",function(e){
   e.preventDefault();
 
@@ -194,13 +199,13 @@ btntransfer.addEventListener("click",function(e){
 
     receiveraccount.transactionsdates.push(new Date())
     currentaccount.transactionsdates.push(new Date())
-    calcdisplaybalance(currentaccount)
-    displaysummary(currentaccount)
-    transactiondisplay(currentaccount)
+    displayUI(currentaccount);
   }  
   inputreceiver.value=inputamount.value='';
 })
 
+
+//Request Loan Button
 btnrequest.addEventListener("click",function(e){
   e.preventDefault()
   const amount=inputrequest.value;
@@ -210,27 +215,27 @@ btnrequest.addEventListener("click",function(e){
     && currentaccount.transactions.some(trans=>trans>=amount*0.1)){
       currentaccount.transactions.push(Number(amount))
       currentaccount.transactionsdates.push(new Date())
-      transactiondisplay(currentaccount);
-      calcdisplaybalance(currentaccount);
-      displaysummary(currentaccount);
+      displayUI(currentaccount);
   }
   inputrequest.value="";
 })
 
+
+// Close Account Button
 btnaccountclose.addEventListener("click",function(e){
   e.preventDefault();
   
-  // console.log(accounts)
   if(inputcloseuser.value===currentaccount.username&&
     Number(inputclosepin.value)===currentaccount.pin){
       const index=accounts.findIndex(acc=>acc.username===currentaccount.username)
-      // console.log(index)
       accounts.splice(index,1)
       labelcontainer.classList.add("hidden")
     }
     inputclosepin.value=inputcloseuser.value="";
 })
 
+
+//Sort Button
 let sorting=false;
 btnsort.addEventListener("click",function(e){
   e.preventDefault()
@@ -255,7 +260,7 @@ btnsort.addEventListener("click",function(e){
 // console.log(wholetransaction)
 
 
-console.log(new Date().toISOString())
+// console.log(new Date().toISOString())
 
 
 
