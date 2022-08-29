@@ -32,9 +32,10 @@ const account1 = {
     "2022-08-03T19:16:19.583Z",
     "2022-08-01T19:16:19.583Z",
   ],
+  interestRate: 0.5,
   pin: 2222,
   locale: "en-US",
-  interestRate: 0.5,
+  currency:"USD"
 };
 const account2 = {
   owner: "Ankit Singh",
@@ -50,8 +51,9 @@ const account2 = {
     "2022-08-28T19:16:19.583Z",
   ],
   pin: 3333,
-  locale: "en-GB",
   interestRate: 0.6,
+  locale: "en-GB",
+  currency:"EUR"
 };
 const account3 = {
   owner: "Shivam Sharma",
@@ -67,8 +69,9 @@ const account3 = {
     "2022-08-28T19:16:19.583Z",
   ],
   pin: 4444,
-  locale:"en-GB",
   interestRate: 0.9,
+  locale:"en-GB",
+  currency:"AUD"
 };
 const account4 = {
   owner: "Rahul Tripathi",
@@ -84,8 +87,9 @@ const account4 = {
     "2022-08-28T19:16:19.583Z",
   ],
   pin: 5555,
-  locale:"en-US",
   interestRate: 0.8,
+  locale:"en-US",
+  currency:"JPY"
 };
 const accounts = [account1, account2, account3, account4];
 
@@ -99,6 +103,15 @@ const datedisplay = function (locale) {
   labeldate.textContent = new Intl.DateTimeFormat(locale).format(presentdate)
 };
 
+//Internationalizing Number Function
+const CurrInter=function(value,locale,curr){
+
+  // console.log(curr)
+  return  new Intl.NumberFormat(locale,{
+    style: 'currency',
+    currency: curr
+  }).format(value)
+}
 
 //Transactiondates formatting function
 const transactiondates = function (transactiondate,locale) {
@@ -127,13 +140,18 @@ const transactiondisplay = function (acc, sort = false) {
   tran.forEach((value, i, accounts) => {
     const type = value > 0 ? "DEPOSIT" : "WITHDRAWL";
 
+    // const valuetrans=CurrInter(value,acc.locale,acc.currrency);
+
+    const valuetrans=CurrInter(value,acc.locale,acc.currency)
+
+    // console.log(acc.currency)
     const transactiondate = new Date(acc.transactionsdates[i]);
     const displaydates = transactiondates(transactiondate,acc.locale);
     const div = `
         <div class="individualTransaction">
             <div class="typetransaction  ${type}">${i + 1} ${type}</div>
             <div class="transactionsdate">${displaydates}</div>
-            <div class="valuetransaction">${value}€</div>
+            <div class="valuetransaction">${valuetrans}</div>
         </div>
         `;
     transactiondetails.insertAdjacentHTML("afterbegin", div);
@@ -149,7 +167,7 @@ const calcdisplaybalance = function (arr) {
     0
   );
   arr.balance = finalbalance;
-  rightdescription.textContent = `${finalbalance}€`;
+  rightdescription.textContent = CurrInter(finalbalance,arr.locale,arr.currency);
 };
 
 //Creating Usernames using map and forEach method
@@ -169,20 +187,20 @@ const displaysummary = function (acc) {
   const income = acc.transactions
     .filter((value) => value > 0)
     .reduce((acc, values) => (acc += values), 0);
-  inamount.textContent = `${income}€`;
+  inamount.textContent = CurrInter(income,acc.locale,acc.currency);
 
   const expenditure = Math.abs(
     acc.transactions
       .filter((value) => value < 0)
       .reduce((acc, values) => (acc += values), 0)
   );
-  outamount.textContent = `${expenditure}€`;
+  outamount.textContent = CurrInter(expenditure,acc.locale,acc.currency);
 
   const interest = acc.transactions
     .filter((value) => value > 0)
     .map((value) => (value * acc.interestRate) / 100)
     .reduce((acc, value) => (acc += value), 0);
-  interestamount.textContent = `${interest}€`;
+  interestamount.textContent = CurrInter(interest,acc.locale,acc.currency);
 };
 
 //DisplayUI
@@ -274,6 +292,15 @@ btnsort.addEventListener("click", function (e) {
   transactiondisplay(currentaccount, !sorting);
   sorting = !sorting;
 });
+
+
+// const num=45135131.66;
+
+// const options={
+//   style: 'currency',
+//   currency: 'USD'
+// }
+// console.log(new Intl.NumberFormat('en-US',options).format(num))
 
 //flat and flatMap method:flatMap method acn only be used in 1 level nested.
 // const wholearray=accounts.map(acc=>acc.transactions);
