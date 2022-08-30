@@ -97,7 +97,7 @@ const accounts = [account1, account2, account3, account4];
 let timer;
 
 const timerDisplay=function(){
-  let time=20;
+  let time=10;
   let min=String(Math.trunc(time/60)).padStart(2,0);
   let second=String(time%60).padStart(2,0);
   labeltimer.textContent=`${min}:${second}`
@@ -112,6 +112,7 @@ const timerDisplay=function(){
     if((time+1)===0){
       clearInterval(timer);
       labelcontainer.classList.add("hidden")
+      labellogin.textContent="Login to get started"
     }
   },1000)
   return timer;
@@ -274,6 +275,8 @@ btntransfer.addEventListener("click", function (e) {
     receiveraccount.transactionsdates.push(new Date());
     currentaccount.transactionsdates.push(new Date());
     displayUI(currentaccount);
+    clearTimeout(timer);
+    timer=timerDisplay();
   }
   inputreceiver.value = inputamount.value = "";
 });
@@ -293,6 +296,8 @@ btnrequest.addEventListener("click", function (e) {
     currentaccount.transactionsdates.push(new Date());
     displayUI(currentaccount);}
     ,5000)
+    clearTimeout(timer);
+    timer=timerDisplay();
   }
   inputrequest.value = "";
 });
@@ -310,6 +315,7 @@ btnaccountclose.addEventListener("click", function (e) {
     );
     accounts.splice(index, 1);
     labelcontainer.classList.add("hidden");
+    labellogin.textContent="Login to get started"
   }
   inputclosepin.value = inputcloseuser.value = "";
 });
