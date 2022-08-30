@@ -18,6 +18,7 @@ const btnrequest = document.querySelector(".btnrequest");
 const inputrequest = document.querySelector(".requestamount");
 const btnsort = document.querySelector(".sorting");
 const labeldate = document.querySelector(".date");
+const labeltimer=document.querySelector(".timer")
 
 const account1 = {
   owner: "Aryan Raj",
@@ -92,6 +93,31 @@ const account4 = {
   currency:"JPY"
 };
 const accounts = [account1, account2, account3, account4];
+
+let timer;
+
+const timerDisplay=function(){
+  let time=20;
+  let min=String(Math.trunc(time/60)).padStart(2,0);
+  let second=String(time%60).padStart(2,0);
+  labeltimer.textContent=`${min}:${second}`
+
+  timer=setInterval(function(){
+    time--;
+    min=String(Math.trunc(time/60)).padStart(2,0);
+    second=String(time%60).padStart(2,0);
+
+    labeltimer.textContent=`${min}:${second}`
+
+    if((time+1)===0){
+      clearInterval(timer);
+      labelcontainer.classList.add("hidden")
+    }
+  },1000)
+  return timer;
+}
+
+
 
 //Dates With Current Balance
 const datedisplay = function (locale) {
@@ -222,6 +248,8 @@ btnlogin.addEventListener("click", function (e) {
     }`;
     displayUI(currentaccount);
     datedisplay(currentaccount.locale);
+    if(timer)clearTimeout(timer);
+    timer=timerDisplay();
   }
 });
 
